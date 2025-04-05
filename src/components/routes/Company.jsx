@@ -9,6 +9,18 @@ import {
   deleteCompanyAccount,
 } from "../../redux/companyAccountSlice";
 
+// Updated list of payment types after removing crypto options
+const paymentTypes = [
+  "tum_bankalar",
+  "bankpay",
+  "othomatik",
+  "banka_havalesi",
+  "hizla_havalesi",
+  "vip_havalesi",
+  "fast_havele",
+  "papara",
+];
+
 export default function Company() {
   const dispatch = useDispatch();
   const { data: accounts, loading, error } = useSelector((state) => state.companyAccounts);
@@ -20,10 +32,10 @@ export default function Company() {
     QRcode: "",
     min: 0,
     max: 0,
-    paymentType: "bank",
+    paymentType: paymentTypes[0], // Default to the first payment type
     accountHolderName: "",
     accountNumber: "",
-    paymentMethod:"",
+    paymentMethod: "",
     WalletAddress: "",
   });
 
@@ -35,8 +47,8 @@ export default function Company() {
     QRcode: "",
     min: 0,
     max: 0,
-    paymentType: "bank",
-    paymentMethod:"",
+    paymentType: paymentTypes[0],
+    paymentMethod: "",
     accountHolderName: "",
     accountNumber: "",
     WalletAddress: "",
@@ -55,7 +67,7 @@ export default function Company() {
         QRcode: selectedAccount.QRcode || "",
         min: selectedAccount.min || 0,
         max: selectedAccount.max || 0,
-        paymentType: selectedAccount.paymentType || "bank",
+        paymentType: selectedAccount.paymentType || paymentTypes[0],
         paymentMethod: selectedAccount.paymentMethod || "",
         accountHolderName: selectedAccount.accountHolderName || "",
         accountNumber: selectedAccount.accountNumber || "",
@@ -64,9 +76,9 @@ export default function Company() {
     }
   }, [selectedAccount]);
 
-  // Filter accounts by payment type (if needed)
+  // Filter accounts by allowed payment types
   const filteredAccounts = accounts.filter((acc) =>
-    ["bank", "vip", "super"].includes(acc.paymentType)
+    paymentTypes.includes(acc.paymentType)
   );
 
   const handleCreate = () => {
@@ -77,8 +89,8 @@ export default function Company() {
       QRcode: "",
       min: 0,
       max: 0,
-      paymentType: "bank",
-      paymentMethod:"",
+      paymentType: paymentTypes[0],
+      paymentMethod: "",
       accountHolderName: "",
       accountNumber: "",
       WalletAddress: "",
@@ -126,9 +138,11 @@ export default function Company() {
               onChange={(e) => setNewAccount({ ...newAccount, paymentType: e.target.value })}
               className="border border-gray-300 rounded-md p-2"
             >
-              <option value="bank">Bank</option>
-              <option value="vip">VIP</option>
-              <option value="super">Super</option>
+              {paymentTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
             </select>
           </div>
           {/* Image URL */}
@@ -188,12 +202,13 @@ export default function Company() {
               className="border border-gray-300 rounded-md p-2"
             />
           </div>
+          {/* Payment Method */}
           <div className="flex flex-col">
-            <label className="mb-1 text-sm font-medium text-gray-700">paymentMethod</label>
+            <label className="mb-1 text-sm font-medium text-gray-700">Payment Method</label>
             <Input
               type="text"
-              placeholder="Enter paymentMethod"
-              value={newAccount.  paymentMethod}
+              placeholder="Enter Payment Method"
+              value={newAccount.paymentMethod}
               onChange={(e) =>
                 setNewAccount({ ...newAccount, paymentMethod: e.target.value })
               }
@@ -228,7 +243,10 @@ export default function Company() {
           </div>
         </div>
         <div className="mt-6 text-right">
-          <Button onClick={handleCreate} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md transition">
+          <Button
+            onClick={handleCreate}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md transition"
+          >
             Create Account
           </Button>
         </div>
@@ -253,7 +271,7 @@ export default function Company() {
                 <th className="p-3 border">Payment Type</th>
                 <th className="p-3 border">Account Holder</th>
                 <th className="p-3 border">Account Number</th>
-                <th className="p-3 border">paymentMethod</th>
+                <th className="p-3 border">Payment Method</th>
                 <th className="p-3 border">Wallet Address</th>
                 <th className="p-3 border">Actions</th>
               </tr>
@@ -331,9 +349,11 @@ export default function Company() {
                   onChange={(e) => setUpdateData({ ...updateData, paymentType: e.target.value })}
                   className="border border-gray-300 rounded-md p-2"
                 >
-                  <option value="bank">Bank</option>
-                  <option value="vip">VIP</option>
-                  <option value="super">Super</option>
+                  {paymentTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
                 </select>
               </div>
               {/* Image URL */}
@@ -400,9 +420,9 @@ export default function Company() {
                   className="border border-gray-300 rounded-md p-2"
                 />
               </div>
-              {/* paymentMethod */}
+              {/* Payment Method */}
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700">paymentMethod</label>
+                <label className="text-sm font-medium text-gray-700">Payment Method</label>
                 <Input
                   type="text"
                   value={updateData.paymentMethod}
