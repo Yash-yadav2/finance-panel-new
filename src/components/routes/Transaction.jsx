@@ -95,7 +95,9 @@ const TransactionPanel = () => {
               <TableHead className="border px-4 py-2">Transaction ID</TableHead>
               <TableHead className="border px-4 py-2">User Account Number</TableHead>
               <TableHead className="border px-4 py-2">User Account Holder Name</TableHead>
+              <TableHead className="border px-4 py-2">Payment Method</TableHead>
               <TableHead className="border px-4 py-2">Status</TableHead>
+              <TableHead className="border px-4 py-2">Ip address</TableHead>
               <TableHead className="border px-4 py-2">Action</TableHead>
               <TableHead className="border px-4 py-2">note</TableHead>
             </TableRow>
@@ -115,6 +117,7 @@ const TransactionPanel = () => {
                   <TableCell className="border px-4 py-2">{tx.userAccountHolderName}</TableCell>
                   <TableCell className="border px-4 py-2">{tx.paymentMethod}</TableCell>
                   <TableCell className="border px-4 py-2">{tx.status}</TableCell>
+                  <TableCell className="border px-4 py-2">{tx.ipAdress}</TableCell>
                   <TableCell className="border px-4 py-2">{tx.rejectionNote}</TableCell>
                   <TableCell className="border px-4 py-2">
                     <Button
