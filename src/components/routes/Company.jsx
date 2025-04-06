@@ -289,7 +289,6 @@ export default function Company() {
                       {acc.image && (
                         <img src={acc.image} alt="Bank" className="h-10 w-10 object-cover rounded" />
                       )}
-                      <span className="text-sm">{acc.image}</span>
                     </div>
                   </td>
                   <td className="p-3 border">
@@ -297,7 +296,6 @@ export default function Company() {
                       {acc.QRcode && (
                         <img src={acc.QRcode} alt="QR Code" className="h-10 w-10 object-cover rounded" />
                       )}
-                      <span className="text-sm">{acc.QRcode}</span>
                     </div>
                   </td>
                   <td className="p-3 border">{acc.min}</td>
