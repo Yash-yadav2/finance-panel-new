@@ -9,6 +9,9 @@ import Company from "./Company";
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState("users"); 
+  const { user, loading } = useSelector((state) => state.auth);
+ 
+  console.log(user);
   
   const admin = {
     name: "adan",
@@ -33,7 +36,7 @@ const Home = () => {
       <nav className="flex justify-between items-center bg-gray-800 text-white p-4 md:rounded-t-md">
         <h1 className="text-xl font-semibold">Finance Dashboard</h1>
         <div className="flex items-center space-x-4">
-          <span>{admin.name}</span>
+          <span>{user.firstName}</span>
           <Button
         onClick={handleLogout}
           className={"px-4 py-2 rounded-md bg-red-500"}
